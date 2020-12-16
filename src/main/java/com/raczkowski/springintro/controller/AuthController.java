@@ -3,12 +3,11 @@ package com.raczkowski.springintro.controller;
 import com.raczkowski.springintro.dto.CredentialsDto;
 import com.raczkowski.springintro.dto.UserDto;
 import com.raczkowski.springintro.service.UserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -27,9 +26,15 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
     public void login(@RequestBody CredentialsDto credentialsDto) {
-        userService.login();
+        userService.login(credentialsDto);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseBody
+    public ResponseEntity<String> handleException(BadCredentialsException badCredentialsException) {
+        return new ResponseEntity<>(badCredentialsException.getMessage(), UNAUTHORIZED);
+    }
 
 }
