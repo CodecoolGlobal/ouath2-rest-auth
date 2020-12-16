@@ -23,7 +23,7 @@ public class AuthController {
     @PostMapping(value = "/register", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
     public void register(@RequestBody UserDto userDto) {
-        userService.registerNewUser();
+        userService.registerNewUser(userDto);
     }
 
     @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
