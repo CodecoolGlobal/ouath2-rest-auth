@@ -5,4 +5,4 @@ curl -i --header "Content-Type: application/json" \
        --data '{"username":"radoslaw","password":"majdan"}' \
        http://localhost:8080/login
 
-curl -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYWRvc2xhdyIsImV4cCI6MTYwMjQ1NTQ4Mn0.KYg9PdkzfKtbUIX5uC5Bc5pfYh69xpN-Vkny2F6XsxlHtrX8eR7fgFxZc7odVpKW79HK8BhGrFhzAMuNUfuKyg" http://localhost:8080/success
+curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkdXBhIiwiaWF0IjoxNjA4MzMyNjY5LCJleHAiOjE2MDg0MTkwNjl9.LkOT2hiJ3iEMe91-hamDtf3Ug72JualjdRApih4YiYq1HN8xfOZhh-hiFkXET63bznM3Fw_euppC94HLrIW8Ow" http://localhost:8080/api/v1/customers?sortBy=DATE
