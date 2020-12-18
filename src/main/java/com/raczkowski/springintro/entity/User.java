@@ -40,6 +40,10 @@ public class User implements UserDetails {
         return Collections.singletonList(simpleGrantedAuthority);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String getPassword() {
         return password;

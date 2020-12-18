@@ -6,6 +6,7 @@ import com.raczkowski.springintro.entity.User;
 import com.raczkowski.springintro.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,8 +33,8 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public void login(CredentialsDto credentialsDto) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentialsDto.getUsername(),
+    public Authentication login(CredentialsDto credentialsDto) {
+        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentialsDto.getUsername(),
                 credentialsDto.getPassword()));
     }
 
