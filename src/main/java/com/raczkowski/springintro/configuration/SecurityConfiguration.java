@@ -1,6 +1,7 @@
 package com.raczkowski.springintro.configuration;
 
 
+import com.raczkowski.springintro.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,9 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder,
-                                UserDetailsService userService) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userService)
+    public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService userService) throws Exception {
+        auth.userDetailsService(userService)
                 .passwordEncoder(bCryptPasswordEncoder());
     }
 }

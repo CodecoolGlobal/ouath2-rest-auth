@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService implements UserDetailsService {
 
-    private PasswordEncoder passwordEncoder;
-    private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
 
     public UserService(PasswordEncoder passwordEncoder,
@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService {
         this.authenticationManager = authenticationManager;
     }
 
-    public void registerNewUser(UserDto userDto) {
+    public void register(UserDto userDto) {
         User user = new User(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(user);
     }
