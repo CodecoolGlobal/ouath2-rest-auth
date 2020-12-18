@@ -4,6 +4,7 @@ import com.raczkowski.springintro.dto.CredentialsDto;
 import com.raczkowski.springintro.dto.UserDto;
 import com.raczkowski.springintro.entity.User;
 import com.raczkowski.springintro.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,17 +17,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService implements UserDetailsService {
 
-    private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(PasswordEncoder passwordEncoder,
-                       UserRepository userRepository,
-                       AuthenticationManager authenticationManager) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-        this.authenticationManager = authenticationManager;
-    }
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     public void register(UserDto userDto) {
         User user = new User(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()));
