@@ -42,6 +42,13 @@ public class AuthController {
         return toJwtResponse(authentication);
     }
 
+
+    @PostMapping(value = "/logout", consumes = APPLICATION_JSON_VALUE)
+    @ResponseStatus(NO_CONTENT)
+    public void logout(Authentication authentication) {
+        userService.logout(authentication);
+    }
+
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseBody
     public ResponseEntity<String> handleException(BadCredentialsException badCredentialsException) {
