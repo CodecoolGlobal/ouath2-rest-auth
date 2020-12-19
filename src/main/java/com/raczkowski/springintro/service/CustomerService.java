@@ -20,10 +20,10 @@ import static com.raczkowski.springintro.util.SortType.DATE;
 @Service
 public class CustomerService {
 
-    private DateComparator dateComparator;
-    private CustomerRepository customerRepository;
-    private CustomerToCustomerDtoConverter customerToCustomerDtoConverter;
-    private CustomerDtoToCustomerConverter customerDtoToCustomerConverter;
+    private final DateComparator dateComparator;
+    private final CustomerRepository customerRepository;
+    private final CustomerToCustomerDtoConverter customerToCustomerDtoConverter;
+    private final CustomerDtoToCustomerConverter customerDtoToCustomerConverter;
 
     public CustomerService(DateComparator dateComparator,
                            CustomerRepository customerRepository,
