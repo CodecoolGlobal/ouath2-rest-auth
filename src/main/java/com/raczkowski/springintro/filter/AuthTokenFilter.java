@@ -39,17 +39,20 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         Optional<String> maybeToken = parseJwt(request);
 
-        maybeToken.ifPresent(token -> {
-            String username = jwtUtils.getUserNameFromJwtToken(token);
+        if (maybeToken.isPresent()) {
+            String token = maybeToken.get();
+            if (jwtUtils.validateJwtToken(token)) {
+                String username = jwtUtils.getUserNameFromJwtToken(token);
 
-            UserDetails userDetails = userService.loadUserByUsername(username);
+                UserDetails userDetails = userService.loadUserByUsername(username);
 
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
 
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        });
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        }
 
         filterChain.doFilter(request, response);
     }

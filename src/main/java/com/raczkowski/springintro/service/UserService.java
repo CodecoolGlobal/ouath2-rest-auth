@@ -12,10 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
-import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,12 +25,6 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private AuthorizationServerTokenServices authorizationServerTokenServices;
-
-    @Autowired
-    private ConsumerTokenServices consumerTokenServices;
 
     public void register(UserDto userDto) {
         User user = new User(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()));
@@ -53,7 +43,6 @@ public class UserService implements UserDetailsService {
     }
 
     public void logout(Authentication authentication) {
-        OAuth2AccessToken accessToken = authorizationServerTokenServices.getAccessToken((OAuth2Authentication) authentication);
-        consumerTokenServices.revokeToken(accessToken.getValue());
+
     }
 }
