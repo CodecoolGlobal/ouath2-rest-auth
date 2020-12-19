@@ -5,6 +5,7 @@ import com.raczkowski.springintro.dto.JwtResponse;
 import com.raczkowski.springintro.dto.UserDto;
 import com.raczkowski.springintro.entity.User;
 import com.raczkowski.springintro.service.UserService;
+import com.raczkowski.springintro.service.ValidationException;
 import com.raczkowski.springintro.util.JwtUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -46,6 +47,12 @@ public class AuthController {
     @ResponseBody
     public ResponseEntity<String> handleException(BadCredentialsException badCredentialsException) {
         return new ResponseEntity<>(badCredentialsException.getMessage(), UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseBody
+    public ResponseEntity<String> handleValidationException(ValidationException validationException) {
+        return new ResponseEntity<>(validationException.getMessage(), CONFLICT);
     }
 
     private JwtResponse toJwtResponse(Authentication authentication) {

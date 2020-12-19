@@ -11,13 +11,13 @@ import java.util.Date;
 import java.util.List;
 
 public class CustomerDto {
-
     private Long id;
     private String name;
     private String address;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date registrationDate;
+
     @JsonIgnore
     private List<OrderDto> orders;
 

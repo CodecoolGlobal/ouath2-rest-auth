@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService implements UserDetailsService {
 
@@ -28,6 +30,9 @@ public class UserService implements UserDetailsService {
 
     public void register(UserDto userDto) {
         User user = new User(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()));
+
+        failIfUserAlreadyRegistered(userDto.getUsername());
+
         userRepository.save(user);
     }
 
@@ -40,5 +45,12 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with username %s cannot be found.", username)));
+    }
+
+    private void failIfUserAlreadyRegistered(String username) {
+        Optional<User> maybeUser = userRepository.findByUsername(username);
+        if (maybeUser.isPresent()) {
+            throw new ValidationException("User already exist: " + maybeUser.get().getUsername());
+        }
     }
 }
