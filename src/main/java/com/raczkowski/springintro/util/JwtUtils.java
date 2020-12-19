@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    private static final long JWT_EXPIRATION_MS = 86_400_000;
+    private static final long JWT_EXPIRATION_MS = 1_800_000;
 
     private static final String JWT_SECRET = "CodeCoolSecretKey";
 

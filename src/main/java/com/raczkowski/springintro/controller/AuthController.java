@@ -42,13 +42,6 @@ public class AuthController {
         return toJwtResponse(authentication);
     }
 
-    @GetMapping(value = "/logout")
-    @ResponseStatus(NO_CONTENT)
-    public void logout() {
-        userService.logout(SecurityContextHolder.getContext().getAuthentication());
-        SecurityContextHolder.getContext().setAuthentication(null);
-    }
-
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseBody
     public ResponseEntity<String> handleException(BadCredentialsException badCredentialsException) {
