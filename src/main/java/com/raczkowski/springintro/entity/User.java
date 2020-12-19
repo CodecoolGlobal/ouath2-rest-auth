@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import java.util.Collection;
 import java.util.Collections;
 
-@Entity(name = "users")
+@Entity(name = "USERS")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

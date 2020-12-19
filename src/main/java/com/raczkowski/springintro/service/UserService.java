@@ -12,10 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2RefreshToken;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,9 +26,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private TokenStore tokenStore;
-
     public void register(UserDto userDto) {
         User user = new User(userDto.getUsername(), passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(user);
@@ -41,14 +34,6 @@ public class UserService implements UserDetailsService {
     public Authentication login(CredentialsDto credentialsDto) {
         return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentialsDto.getUsername(),
                 credentialsDto.getPassword()));
-    }
-
-    public void logout(Authentication authentication) {
-        OAuth2AccessToken accessToken = tokenStore.getAccessToken((OAuth2Authentication) authentication);
-        OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
-
-        tokenStore.removeAccessToken(accessToken);
-        tokenStore.removeRefreshToken(refreshToken);
     }
 
     @Override
