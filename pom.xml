@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>com.raczkowski</groupId>
-    <artifactId>login-and-jwt</artifactId>
+    <artifactId>ouath2-rest-auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>login-and-jwt</name>
-    <description>login-and-jwt</description>
+    <name>ouath2-rest-auth</name>
+    <description>ouath2-rest-auth</description>
 
     <properties>
         <java.version>11</java.version>
